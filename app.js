@@ -129,14 +129,19 @@ app.get("/logout", function(req,res){
 })
 
 app.post('/register',function(req,res){
-
-    User.register({username:req.body.username}, req.body.password, function(err,user){
-        if(err){
-            log(err);
-            res.redirect("/register");
+    User.findOne({username:req.body.username}, function(err,foundUser){
+        if(foundUser){
+            res.send("User was created before!");
         }else{
-            passport.authenticate("local")(req,res,function(){
-                res.redirect("/secrets");
+            User.register({username:req.body.username}, req.body.password, function(err,user){
+                if(err){
+                    log(err);
+                    res.redirect("/register");
+                }else{
+                    passport.authenticate("local")(req,res,function(){
+                        res.redirect("/secrets");
+                    })
+                }
             })
         }
     })
