@@ -66,7 +66,7 @@ passport.deserializeUser(function (user, cb) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_GOOGLE_CLIENT_ID,
+      clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: `${process.env.LIVE_URL}/auth/google/secrets`,
       userProfileURL: process.env.GOOGLE_USER_PROFILE_URL,
@@ -88,7 +88,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: `${LIVE_URL}/auth/facebook/callback`,
+      callbackURL: `${process.env.LIVE_URL}/auth/facebook/callback`,
       profileFields: ["id", "emails", "name"],
     },
     function (accessToken, refreshToken, profile, cb) {
